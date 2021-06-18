@@ -3,7 +3,7 @@ PATH
   specs:
     iopromise-dalli (0.1.0)
       dalli (= 2.7.11)
-      iopromise (~> 0.1.2)
+      iopromise (~> 0.1.3)
 
 GEM
   remote: https://rubygems.org/
@@ -11,7 +11,7 @@ GEM
     benchmark-ips (2.9.1)
     dalli (2.7.11)
     diff-lcs (1.4.4)
-    iopromise (0.1.2)
+    iopromise (0.1.3)
       nio4r
       promise.rb (~> 0.7.4)
     nio4r (2.5.7)

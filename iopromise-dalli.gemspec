@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'iopromise', '~> 0.1.2'
+  spec.add_dependency 'iopromise', '~> 0.1.3'
 
   # we pin this very specifically while we are monkey patching support
   spec.add_dependency 'dalli', '2.7.11'
