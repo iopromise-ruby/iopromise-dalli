@@ -4,7 +4,7 @@ require_relative 'executor_pool'
 
 module IOPromise
   module Dalli
-    class DalliPromise < ::IOPromise::Base
+    class DalliPromise < ::IOPromise::Base # @!visibility private
       attr_reader :key
 
       def initialize(server = nil, key = nil)

@@ -4,7 +4,7 @@ require 'iopromise'
 
 module IOPromise
   module Dalli
-    class DalliExecutorPool < IOPromise::ExecutorPool::Base
+    class DalliExecutorPool < IOPromise::ExecutorPool::Base # @!visibility private
       def initialize(*)
         super
 

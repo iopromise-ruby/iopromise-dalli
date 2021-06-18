@@ -6,11 +6,14 @@ require_relative 'patch_dalli'
 
 module IOPromise
   module Dalli
+    # Implements an IOPromise-backed API similar to Dalli for accessing memcache.
+    #
+    # There is no need for explicit get_multi or batching, as requests
+    # are sent as soon as the promise is created, multiple can be
+    # awaiting response at any time, and responses are automatically demuxed.
     class Client
-      # General note:
-      # There is no need for explicit get_multi or batching, as requests
-      # are sent as soon as the IOPromise is created, multiple can be
-      # awaiting response at any time, and responses are automatically demuxed.
+      # Creates a new IOPromise-backed Dalli client. See Dalli documentation for
+      # available options and server usage.
       def initialize(servers = nil, options = {})
         @cache_nils = !!options[:cache_nils]
         options[:iopromise_async] = true
@@ -18,7 +21,7 @@ module IOPromise
         @client = ::Dalli::Client.new(servers, options)
       end
 
-      # Returns a promise that resolves to a IOPromise::Dalli::Response with the
+      # Returns a promise that resolves to a {IOPromise::Dalli::Response} with the
       # value for the given key, or +nil+ if the key is not found.
       def get(key, options = nil)
         @client.perform(:get, key, options)
@@ -54,20 +57,20 @@ module IOPromise
       end
 
       # Unconditionally sets the +key+ to the +value+ specified.
-      # Returns a promise that resolves to a IOPromise::Dalli::Response.
+      # Returns a promise that resolves to a {IOPromise::Dalli::Response}.
       def set(key, value, ttl = nil, options = nil)
         @client.perform(:set, key, value, ttl_or_default(ttl), 0, options)
       end
 
       # Conditionally sets the +key+ to the +value+ specified.
-      # Returns a promise that resolves to a IOPromise::Dalli::Response.
+      # Returns a promise that resolves to a {IOPromise::Dalli::Response}.
       def add(key, value, ttl = nil, options = nil)
         @client.perform(:add, key, value, ttl_or_default(ttl), options)
       end
 
       # Conditionally sets the +key+ to the +value+ specified only
       # if the key already exists.
-      # Returns a promise that resolves to a IOPromise::Dalli::Response.
+      # Returns a promise that resolves to a {IOPromise::Dalli::Response}.
       def replace(key, value, ttl = nil, options = nil)
         @client.perform(:replace, key, value, ttl_or_default(ttl), 0, options)
       end

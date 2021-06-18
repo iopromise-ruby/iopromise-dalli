@@ -5,7 +5,7 @@ require_relative 'response'
 
 module IOPromise
   module Dalli
-    module AsyncClient
+    module AsyncClient # @!visibility private
       def initialize(servers = nil, options = {})
         @async = options[:iopromise_async] == true
 
@@ -25,7 +25,7 @@ module IOPromise
       end
     end
 
-    module AsyncServer
+    module AsyncServer # @!visibility private
       def initialize(attribs, options = {})
         @async = options.delete(:iopromise_async) == true
 
